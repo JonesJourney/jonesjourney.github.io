@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#f3ead6"><title>Make Sure They Know It</title>
+<style>
+:root{--cream:#f3ead6;--paper:#fffaf0;--green:#1d3028;--gold:#9a741d;--red:#72261f;--ink:#222}
+*{box-sizing:border-box} body{margin:0;background:var(--green);color:var(--ink);font-family:Georgia,"Times New Roman",serif}
+.wrap{max-width:720px;margin:auto;padding:18px}.card{background:var(--cream);border:2px solid var(--gold);outline:5px solid #14251f;border-radius:18px;padding:30px 24px;min-height:calc(100vh - 36px);box-shadow:0 10px 35px #0006}
+h1,h2{text-align:center;color:var(--green);letter-spacing:.035em;margin:.2em 0}h1{font-size:clamp(34px,8vw,58px);line-height:.95}h2{font-size:28px}
+.rule{text-align:center;color:var(--gold);margin:15px 0;font-size:20px}.lead{text-align:center;font-size:20px;line-height:1.5}.small{text-align:center;font-size:15px;line-height:1.5}
+label{display:block;font-weight:bold;margin:18px 0 7px}input,textarea{width:100%;font:17px system-ui,sans-serif;padding:13px;border:1px solid #aa9d80;border-radius:10px;background:var(--paper)}
+textarea{min-height:145px;resize:vertical}button,.btn{display:block;width:100%;border:0;border-radius:10px;padding:14px 12px;margin:12px 0;background:var(--green);color:white;font:bold 16px system-ui,sans-serif;letter-spacing:.04em;text-align:center;text-decoration:none;cursor:pointer}
+.secondary{background:var(--gold)}.ghost{background:transparent;color:var(--green);border:1px solid var(--green)}.hidden{display:none}.message{white-space:pre-wrap;background:var(--paper);border-left:4px solid var(--gold);padding:18px;font:17px/1.55 Georgia,serif;margin:18px 0}
+.actions{display:grid;grid-template-columns:1fr 1fr;gap:10px}.actions .wide{grid-column:1/-1}details{margin-top:30px;border-top:1px solid #bcae8e;padding-top:16px}summary{cursor:pointer;text-align:center;font-weight:bold;color:var(--green)}
+.footer{text-align:center;margin-top:24px;color:#625a4a;font-size:13px}strong.em{color:var(--red)}@media(max-width:480px){.card{padding:25px 18px}.actions{grid-template-columns:1fr}}
+</style></head>
+<body><main class="wrap"><section class="card">
+<div id="intro"><h1>WHO MADE A<br>DIFFERENCE IN YOUR LIFE?</h1><div class="rule">— ★ —</div>
+<p class="lead">Think about someone who had an impact on your life but may have no idea they did.</p>
+<p class="lead">Maybe they believed in you. Gave you an opportunity. Challenged you. Said something they’ve long since forgotten—but you never did.</p>
+<p class="lead"><strong class="em">Who came to mind?</strong></p><button onclick="showForm()">I HAVE SOMEONE IN MIND</button></div>
+<div id="form" class="hidden"><h2>TELL THEIR STORY</h2><p class="small">Take a minute. It doesn't need to be perfect. Just tell them what they did and why it mattered.</p>
+<label for="theirName">Their first name</label><input id="theirName" autocomplete="off" placeholder="Joe">
+<label for="story">What did they do that made a difference?</label><textarea id="story" placeholder="Write it the way you would say it to them..."></textarea>
+<label for="yourName">Your first name</label><input id="yourName" autocomplete="off" placeholder="Nicky">
+<button onclick="buildMessage()">HELP ME TELL THEM</button><button class="ghost" onclick="showIntro()">BACK</button></div>
+<div id="result" class="hidden"><h2>MAKE SURE THEY KNOW IT.</h2><p class="small">Here's a starting point. Make it yours before you send it.</p>
+<div id="message" class="message" contenteditable="true"></div><div class="actions"><a id="textBtn" class="btn" href="#">TEXT THEM</a><a id="emailBtn" class="btn" href="#">EMAIL THEM</a><button class="secondary wide" onclick="copyMessage()">COPY MESSAGE</button></div>
+<p id="copied" class="small hidden"><strong>Copied.</strong> Now send it to them.</p><button class="ghost" onclick="showForm()">EDIT MY ANSWERS</button></div>
+<details><summary>WHY AM I HERE?</summary>
+<p class="small">On October 2, 2026, Nicky and Shanna Jones brought together people who had made a difference in their lives.</p>
+<p class="small">Inspired by Drew Dudley's idea of “lollipop moments,” this is our invitation to pass that recognition forward.</p>
+<p class="lead"><strong class="em">Someone made a difference in your life.<br>Make sure they know it.</strong></p></details>
+<p class="footer">Your names and story are not submitted or stored by this page. They stay in your browser unless you choose to send or copy your message.</p>
+</section></main>
+<script>
+function show(id){["intro","form","result"].forEach(x=>document.getElementById(x).classList.toggle("hidden",x!==id));window.scrollTo({top:0,behavior:"smooth"})}
+function showForm(){show("form")} function showIntro(){show("intro")}
+function buildMessage(){const them=document.getElementById("theirName").value.trim(),story=document.getElementById("story").value.trim(),me=document.getElementById("yourName").value.trim();if(!them||!story||!me){alert("Please fill in all three fields.");return}
+const msg=`${them},
+
+You may not remember this, but I've never forgotten it.
+
+${story}
+
+I was reminded today that we don't always realize the impact we have on other people's lives. You made a difference in mine, and I wanted to make sure you knew it.
+
+Thank you.
+
+— ${me}`;document.getElementById("message").innerText=msg;updateLinks(msg);show("result")}
+function currentMessage(){return document.getElementById("message").innerText.trim()}
+function updateLinks(msg){document.getElementById("textBtn").href="sms:?&body="+encodeURIComponent(msg);document.getElementById("emailBtn").href="mailto:?subject="+encodeURIComponent("You made a difference in my life")+"&body="+encodeURIComponent(msg)}
+document.getElementById("message").addEventListener("input",()=>updateLinks(currentMessage()));
+async function copyMessage(){const msg=currentMessage();try{await navigator.clipboard.writeText(msg)}catch(e){const t=document.createElement("textarea");t.value=msg;document.body.appendChild(t);t.select();document.execCommand("copy");t.remove()}document.getElementById("copied").classList.remove("hidden")}
+</script></body></html>
