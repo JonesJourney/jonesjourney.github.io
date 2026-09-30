@@ -17,9 +17,9 @@ textarea{min-height:145px;resize:vertical}button,.btn{display:block;width:100%;b
 </style></head>
 <body><main class="wrap"><section class="card">
 <div id="intro"><h1>WHO MADE A<br>DIFFERENCE IN YOUR LIFE?</h1><div class="rule">— ★ —</div>
-<p class="lead">Think about someone who had an impact on your life but may have no idea they did.</p>
+<p class="lead">Think of someone who made a difference in your life—but may have no idea they did.</p>
 <p class="lead">Maybe they believed in you. Gave you an opportunity. Challenged you. Said something they’ve long since forgotten—but you never did.</p>
-<p class="lead"><strong class="em">Who came to mind?</strong></p><button onclick="showForm()">I HAVE SOMEONE IN MIND</button></div>
+<p class="small"><em>Inspired by Drew Dudley’s idea of “Lollipop Moments” and everyday leadership.</em></p>\n<p class="lead"><strong class="em">Who came to mind?</strong></p><button onclick="showForm()">I HAVE SOMEONE IN MIND</button></div>
 <div id="form" class="hidden"><h2>TELL THEIR STORY</h2><p class="small">Take a minute. It doesn't need to be perfect. Just tell them what they did and why it mattered.</p>
 <label for="theirName">Their first name</label><input id="theirName" autocomplete="off" placeholder="Joe">
 <label for="story">What did they do that made a difference?</label><textarea id="story" placeholder="Write it the way you would say it to them..."></textarea>
@@ -32,7 +32,7 @@ textarea{min-height:145px;resize:vertical}button,.btn{display:block;width:100%;b
 <p class="small">On October 2, 2026, Nicky and Shanna Jones brought together people who had made a difference in their lives.</p>
 <p class="small">Inspired by Drew Dudley's idea of “lollipop moments,” this is our invitation to pass that recognition forward.</p>
 <p class="lead"><strong class="em">Someone made a difference in your life.<br>Make sure they know it.</strong></p></details>
-<p class="footer">Your names and story are not submitted or stored by this page. They stay in your browser unless you choose to send or copy your message.</p>
+<p class="footer">Nothing you write here is collected or stored.</p>
 </section></main>
 <script>
 function show(id){["intro","form","result"].forEach(x=>document.getElementById(x).classList.toggle("hidden",x!==id));window.scrollTo({top:0,behavior:"smooth"})}
@@ -40,11 +40,11 @@ function showForm(){show("form")} function showIntro(){show("intro")}
 function buildMessage(){const them=document.getElementById("theirName").value.trim(),story=document.getElementById("story").value.trim(),me=document.getElementById("yourName").value.trim();if(!them||!story||!me){alert("Please fill in all three fields.");return}
 const msg=`${them},
 
-You may not remember this, but I've never forgotten it.
+You probably don't remember this, but I've never forgotten it.
 
 ${story}
 
-I was reminded today that we don't always realize the impact we have on other people's lives. You made a difference in mine, and I wanted to make sure you knew it.
+I was reminded recently that we don't always realize the impact we have on other people's lives. That moment made a difference in mine, and I wanted to make sure you knew it.
 
 Thank you.
 
